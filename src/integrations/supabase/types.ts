@@ -14,7 +14,77 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          branch: string
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          branch: string
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          last_name: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          branch?: string
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      quiz_submissions: {
+        Row: {
+          answers: Json
+          completed_at: string
+          id: string
+          profile_id: string
+          score: number
+          time_taken: number | null
+          total_questions: number
+        }
+        Insert: {
+          answers?: Json
+          completed_at?: string
+          id?: string
+          profile_id: string
+          score?: number
+          time_taken?: number | null
+          total_questions?: number
+        }
+        Update: {
+          answers?: Json
+          completed_at?: string
+          id?: string
+          profile_id?: string
+          score?: number
+          time_taken?: number | null
+          total_questions?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_submissions_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
