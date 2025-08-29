@@ -33,13 +33,13 @@ export const QuizScreen = ({
 
   // Reset state when question changes
   useEffect(() => {
-    setSelectedOption(userAnswer || "");
+    setSelectedOption("");
     setShowCorrectAnswer(false);
     setTimeLeft(30);
   }, [question.id, userAnswer]);
 
   // Timer effect
-  useEffect(() => {
+  /*useEffect(() => {
     if (timeLeft > 0 && !showCorrectAnswer) {
       const timer = setTimeout(() => {
         setTimeLeft(timeLeft - 1);
@@ -67,26 +67,74 @@ export const QuizScreen = ({
       onNext();
     }, 2000);
   };
+  */
+ // testing 
+ // ...existing code...
+useEffect(() => {
+  if (timeLeft > 0 && !showCorrectAnswer) {
+    const timer = setTimeout(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+    return () => clearTimeout(timer);
+  } else if (timeLeft === 0 && !showCorrectAnswer) {
+    handleSubmit(true); // Indicate timeout
+  }
+}, [timeLeft, showCorrectAnswer]);
+// ...existing code...
+// ...existing code...
+const handleOptionSelect = (option: string) => {
+  if (!showCorrectAnswer) {
+    setSelectedOption(option);
+  }
+};
+// ...existing code...
 
-  const getOptionClassName = (option: string) => {
-    let baseClass = "w-full p-4 text-left border-2 rounded-lg transition-all duration-300 hover:scale-105";
-    
-    if (!showCorrectAnswer) {
-      // Before submission - normal state
-      if (selectedOption === option) {
-        return `${baseClass} border-primary bg-primary/20 cyber-glow`;
-      }
-      return `${baseClass} border-primary/30 bg-card hover:border-primary/50 hover:bg-primary/10`;
-    } else {
-      // After submission - show correct/incorrect
-      if (option === question.correctAnswer) {
-        return `${baseClass} border-accent bg-accent/20 text-accent cyber-glow`;
-      } else if (selectedOption === option && option !== question.correctAnswer) {
-        return `${baseClass} border-destructive bg-destructive/20 text-destructive`;
-      }
-      return `${baseClass} border-muted/30 bg-muted/10 text-muted-foreground`;
+const handleSubmit = (isTimeout = false) => {
+  // If user didn't select, just show correct answer
+  if (!selectedOption && isTimeout) {
+    setShowCorrectAnswer(true);
+    setSelectedOption(""); // No selection
+    setTimeout(() => {
+      onNext();
+    }, 2000);
+    return;
+  }
+  if (!selectedOption) return;
+
+  onAnswer(question.id, selectedOption);
+  setShowCorrectAnswer(true);
+
+  setTimeout(() => {
+    onNext();
+  }, 2000);
+};
+// ...existing code...
+
+const getOptionClassName = (option: string) => {
+  let baseClass = "w-full p-4 text-left border-2 rounded-lg transition-all duration-300 hover:scale-105";
+
+  if (!showCorrectAnswer) {
+    // Before submission - normal state
+    if (selectedOption === option) {
+      return `${baseClass} border-primary bg-primary/20 cyber-glow`;
     }
-  };
+    return `${baseClass} border-primary/30 bg-card hover:border-primary/50 hover:bg-primary/10`;
+  } else {
+    // After submission - show correct/incorrect
+    if (option === question.correctAnswer && selectedOption === option) {
+      // User picked the correct answer
+      return `${baseClass} border-accent bg-accent/30 text-accent cyber-glow`;
+    } else if (option === question.correctAnswer) {
+      // Correct answer (not picked by user)
+      return `${baseClass} border-accent bg-accent/20 text-accent cyber-glow`;
+    } else if (selectedOption === option) {
+      // User's wrong answer
+      return `${baseClass} border-destructive bg-destructive/20 text-destructive`;
+    }
+    // All other options
+    return `${baseClass} border-muted/30 bg-muted/10 text-muted-foreground`;
+  }
+};
 
   const progress = ((questionNumber - 1) / totalQuestions) * 100;
 
@@ -133,7 +181,7 @@ export const QuizScreen = ({
         {/* Submit Button */}
         {!showCorrectAnswer && (
           <Button 
-            onClick={handleSubmit}
+            onClick={() => handleSubmit()}
             disabled={!selectedOption}
             className="w-full py-6 text-lg font-bold cyber-glow hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
             size="lg"
