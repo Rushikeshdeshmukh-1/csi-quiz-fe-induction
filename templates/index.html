@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSI Neon Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-container">
+                <div class="csi-logo">
+                    <h1 class="logo-text cyber-glow cyber-flicker">
+                        <span class="text-primary">C</span>
+                        <span class="text-secondary">S</span>
+                        <span class="text-accent">I</span>
+                    </h1>
+                    <div class="subtitle">COMPUTER SOCIETY OF INDIA</div>
+                </div>
+                <div class="loading-text">
+                    <div id="loading-message" class="cyber-glow">INITIALIZING</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Landing Page -->
+        <div id="landing-screen" class="screen">
+            <div class="card-container">
+                <div class="cyber-card">
+                    <div class="csi-logo">
+                        <h1 class="logo-text cyber-flicker">
+                            <span class="text-primary">C</span>
+                            <span class="text-secondary">S</span>
+                            <span class="text-accent">I</span>
+                        </h1>
+                        <h2 class="title">Computer Society of India</h2>
+                        <div class="subtitle">Quiz Challenge</div>
+                    </div>
+                    
+                    <div class="welcome-content">
+                        <p>Welcome to the CSI Quiz Challenge! Test your computer science knowledge in this cyberpunk-themed quiz arena.</p>
+                        <div class="features">
+                            <div class="feature-line">> 10 challenging questions</div>
+                            <div class="feature-line">> Real-time leaderboard</div>
+                            <div class="feature-line">> Prove your CS mastery</div>
+                        </div>
+                    </div>
+                    
+                    <button id="get-started-btn" class="cyber-button primary">
+                        <span class="cyber-flicker">ENTER THE MATRIX</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Follow Screen -->
+        <div id="instagram-screen" class="screen">
+            <div class="card-container">
+                <div class="cyber-card">
+                    <div class="instagram-header">
+                        <i class="fab fa-instagram cyber-glow"></i>
+                        <h2 class="title cyber-flicker">Follow Us on Instagram</h2>
+                    </div>
+                    
+                    <div class="instagram-content">
+                        <p>Please follow our official Instagram handle to continue with the quiz.</p>
+                        <div class="instagram-handle">@csi_official</div>
+                        <p class="honor-text">This is based on the honor system. Click confirm once you have followed our account.</p>
+                    </div>
+                    
+                    <div class="button-group">
+                        <a href="https://instagram.com/csi_official" target="_blank" class="cyber-button outline">
+                            <i class="fab fa-instagram"></i>
+                            Open Instagram
+                        </a>
+                        <button id="instagram-confirm-btn" class="cyber-button primary">
+                            <span class="cyber-flicker">I HAVE FOLLOWED</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="register-screen" class="screen">
+            <div class="card-container">
+                <div class="cyber-card">
+                    <div class="form-header">
+                        <h2 class="title cyber-flicker">Register for Quiz</h2>
+                        <div class="subtitle">Enter the arena. Prove your worth.</div>
+                    </div>
+                    
+                    <form id="registration-form" class="registration-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="branch">Branch</label>
+                            <select id="branch" name="branch" required>
+                                <option value="">Select your branch</option>
+                                <option value="Computer Engineering">Computer Engineering</option>
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Mechanical">Mechanical</option>
+                                <option value="Civil">Civil</option>
+                                <option value="Electrical">Electrical</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="cyber-button primary full-width">
+                            <span class="cyber-flicker">ENTER QUIZ ARENA</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="card-container">
+                <div class="cyber-card quiz-card">
+                    <div class="quiz-header">
+                        <div class="quiz-info">
+                            <span id="question-counter">Question 1 of 10</span>
+                            <span id="timer" class="cyber-glow">30s</span>
+                        </div>
+                        <div class="progress-container">
+                            <div id="progress-bar" class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                        </div>
+                        <h2 id="question-text" class="question-text"></h2>
+                    </div>
+                    
+                    <div id="options-container" class="options-container">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                    
+                    <button id="submit-answer-btn" class="cyber-button primary full-width" disabled>
+                        <span class="cyber-flicker">SUBMIT ANSWER</span>
+                    </button>
+                    
+                    <div id="feedback" class="feedback hidden">
+                        <div id="feedback-text" class="feedback-text"></div>
+                        <div id="correct-answer" class="correct-answer"></div>
+                        <div class="next-info">Next question in 2 seconds...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div id="leaderboard-screen" class="screen">
+            <div class="leaderboard-container">
+                <div class="leaderboard-header">
+                    <h1 class="title cyber-flicker">NEON LEADERBOARD</h1>
+                    <div class="subtitle">Top Performers - CSI Quiz Challenge</div>
+                </div>
+                
+                <div class="admin-access">
+                    <button id="admin-access-btn" class="cyber-button outline">
+                        <i class="fas fa-shield-alt"></i>
+                        Admin Dashboard
+                    </button>
+                </div>
+                
+                <div class="cyber-card">
+                    <h2 class="leaderboard-title">Leaderboard</h2>
+                    <div id="leaderboard-content" class="leaderboard-content">
+                        <div class="loading-message">Loading leaderboard...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-screen" class="screen">
+            <div class="admin-container">
+                <!-- Password prompt -->
+                <div id="admin-login" class="card-container">
+                    <div class="cyber-card">
+                        <div class="admin-header">
+                            <h2 class="title cyber-flicker">ADMIN ACCESS</h2>
+                            <div class="subtitle">Restricted Area - Authorization Required</div>
+                        </div>
+                        
+                        <div class="admin-login-form">
+                            <input type="password" id="admin-password" placeholder="Enter admin password">
+                            <button id="admin-login-btn" class="cyber-button primary full-width">
+                                ACCESS CONTROL CENTER
+                            </button>
+                            <button id="admin-back-btn" class="cyber-button outline full-width">
+                                <i class="fas fa-arrow-left"></i>
+                                Back to Leaderboard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Admin dashboard -->
+                <div id="admin-dashboard" class="admin-dashboard hidden">
+                    <div class="admin-header">
+                        <div>
+                            <h1 class="title cyber-flicker">ADMIN CONTROL CENTER</h1>
+                            <div class="subtitle">CSI Quiz Management System</div>
+                        </div>
+                        <button id="dashboard-back-btn" class="cyber-button outline">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Leaderboard
+                        </button>
+                    </div>
+                    
+                    <div class="admin-actions">
+                        <button id="refresh-data-btn" class="cyber-button primary">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh Data
+                        </button>
+                        <button id="nuclear-reset-btn" class="cyber-button destructive">
+                            <i class="fas fa-trash"></i>
+                            Nuclear Reset
+                        </button>
+                    </div>
+                    
+                    <div class="cyber-card">
+                        <h2 class="submissions-title">All Quiz Submissions (<span id="submission-count">0</span>)</h2>
+                        <div id="submissions-table" class="submissions-table">
+                            <div class="loading-message">Loading submissions...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

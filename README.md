@@ -1,73 +1,139 @@
-# Welcome to your Lovable project
+# CSI Quiz Challenge - Flask/MongoDB Version
 
-## Project info
+A cyberpunk-themed quiz application built with Flask, MongoDB, HTML, CSS, and JavaScript.
 
-**URL**: https://lovable.dev/projects/372b870f-24e8-4bbd-b0ec-401086b260bd
+## Tech Stack
 
-## How can I edit this code?
+- **Backend**: Flask (Python)
+- **Database**: MongoDB
+- **Frontend**: HTML, CSS, JavaScript
+- **Styling**: Custom CSS with cyberpunk theme
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- Cyberpunk-themed UI with neon effects
+- 10 computer science questions
+- Real-time leaderboard
+- Admin dashboard with data management
+- Responsive design
+- Instagram follow integration
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/372b870f-24e8-4bbd-b0ec-401086b260bd) and start prompting.
+## Setup Instructions
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Python 3.8+
+- MongoDB (local or cloud instance)
+- pip (Python package manager)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. **Install Python dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Follow these steps:
+2. **Set up environment variables:**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Edit `.env` file with your configuration:
+   ```
+   SECRET_KEY=your-secret-key-here
+   MONGO_URI=mongodb://localhost:27017/csi_quiz
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. **Start MongoDB:**
+   - For local MongoDB: `mongod`
+   - For MongoDB Atlas: Use your connection string in MONGO_URI
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. **Run the application:**
+   ```bash
+   python app.py
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+5. **Access the application:**
+   Open your browser and go to `http://localhost:5000`
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## Database Schema
+
+### Collections
+
+#### quiz_submissions
+```javascript
+{
+  _id: ObjectId,
+  first_name: String,
+  last_name: String,
+  email: String,
+  branch: String,
+  score: Number,
+  total_questions: Number,
+  answers: Object,
+  time_taken: Number, // in seconds
+  completed_at: Date
+}
 ```
 
-**Edit a file directly in GitHub**
+## API Endpoints
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- `GET /` - Main application page
+- `GET /api/questions` - Get quiz questions
+- `POST /api/submit-quiz` - Submit quiz answers
+- `GET /api/leaderboard` - Get leaderboard data
+- `GET /api/admin/submissions` - Get all submissions (admin)
+- `POST /api/admin/reset` - Reset all data (admin)
 
-**Use GitHub Codespaces**
+## Admin Access
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- Password: `CSI2025`
+- Features:
+  - View all submissions
+  - Nuclear reset (delete all data)
+  - Real-time data refresh
 
-## What technologies are used for this project?
+## Development
 
-This project is built with:
+The application uses:
+- Flask for the web server and API
+- PyMongo for MongoDB integration
+- Vanilla JavaScript for frontend interactivity
+- Custom CSS for cyberpunk styling
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## File Structure
 
-## How can I deploy this project?
+```
+├── app.py                 # Flask application
+├── requirements.txt       # Python dependencies
+├── templates/
+│   └── index.html        # Main HTML template
+├── static/
+│   ├── css/
+│   │   └── styles.css    # Cyberpunk styling
+│   └── js/
+│       └── app.js        # Frontend JavaScript
+└── .env                  # Environment variables
+```
 
-Simply open [Lovable](https://lovable.dev/projects/372b870f-24e8-4bbd-b0ec-401086b260bd) and click on Share -> Publish.
+## Deployment
 
-## Can I connect a custom domain to my Lovable project?
+For production deployment:
 
-Yes, you can!
+1. Set `DEBUG=False` in app.py
+2. Use a production WSGI server like Gunicorn
+3. Set up proper MongoDB security
+4. Configure environment variables securely
+5. Use HTTPS in production
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Contributing
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.

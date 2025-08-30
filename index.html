@@ -1,24 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>csi-neon-quiz</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-
-    <meta property="og:title" content="csi-neon-quiz" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSI Neon Quiz - Flask Version</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: hsl(220, 31%, 6%);
+            color: hsl(185, 15%, 95%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .container {
+            background: hsl(220, 25%, 8%);
+            border: 2px solid hsla(185, 100%, 50%, 0.5);
+            border-radius: 0.5rem;
+            padding: 3rem;
+            max-width: 600px;
+            box-shadow: 0 0 20px hsla(185, 100%, 50%, 0.5);
+        }
+        
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .primary { color: hsl(185, 100%, 50%); }
+        .secondary { color: hsl(290, 100%, 60%); }
+        .accent { color: hsl(120, 100%, 50%); }
+        
+        .title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            color: hsl(185, 10%, 70%);
+            margin-bottom: 2rem;
+        }
+        
+        .instructions {
+            background: hsla(185, 100%, 50%, 0.1);
+            border: 1px solid hsla(185, 100%, 50%, 0.3);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .step {
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+        
+        .command {
+            background: hsl(220, 31%, 6%);
+            border: 1px solid hsl(185, 50%, 25%);
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            font-family: monospace;
+            color: hsl(185, 100%, 50%);
+            margin: 0.5rem 0;
+            display: block;
+        }
+        
+        .warning {
+            color: hsl(45, 100%, 55%);
+            font-weight: bold;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <span class="primary">C</span>
+            <span class="secondary">S</span>
+            <span class="accent">I</span>
+        </div>
+        
+        <h1 class="title">Quiz Challenge</h1>
+        <div class="subtitle">Flask/MongoDB Version</div>
+        
+        <div class="instructions">
+            <h3>Setup Instructions:</h3>
+            
+            <div class="step">
+                <strong>1. Install Python dependencies:</strong>
+                <code class="command">pip install -r requirements.txt</code>
+            </div>
+            
+            <div class="step">
+                <strong>2. Set up MongoDB:</strong>
+                <p>Install MongoDB locally or use MongoDB Atlas cloud service</p>
+            </div>
+            
+            <div class="step">
+                <strong>3. Configure environment:</strong>
+                <code class="command">cp .env.example .env</code>
+                <p>Edit .env file with your MongoDB connection string</p>
+            </div>
+            
+            <div class="step">
+                <strong>4. Run the application:</strong>
+                <code class="command">python app.py</code>
+            </div>
+            
+            <div class="step">
+                <strong>5. Access the quiz:</strong>
+                <p>Open <code class="command">http://localhost:5000</code> in your browser</p>
+            </div>
+        </div>
+        
+        <div class="warning">
+            ⚠️ Make sure MongoDB is running before starting the Flask application!
+        </div>
+    </div>
+</body>
 </html>
